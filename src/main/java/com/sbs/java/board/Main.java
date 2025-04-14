@@ -32,10 +32,15 @@ public class Main {
     Scanner sc = new Scanner(System.in);
     List<Article> articles = new ArrayList<>(); //주소값 연결됨 -- toString 때문에 값들어옴
 
-    int lastArticleId = 0;
+    makeArticleTestData(articles);
+
+    //마지막 게시물 객체의 Id 들어옴
+    //makeArticleTestData(articles); 얘가 실행된 후에 작성을 해야 마지막 사이즈에서 1을 뺌 순서**
+    int lastArticleId = articles.get(articles.size() - 1).id;
+
     Article lastArticle = null; //변수 초기화
 
-    makeArticleTestData(articles);
+
 
 
     System.out.println("== 자바 텍스트 게시판 ==");
