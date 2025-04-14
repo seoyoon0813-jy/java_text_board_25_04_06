@@ -19,14 +19,14 @@ public class Main {
         System.out.print("제목 : ");
         String subject = sc.nextLine();
 
-        if(subject.trim().isEmpty()) {
+        if (subject.trim().isEmpty()) {
           System.out.println("제목을 입력해주세요.");
           continue;
         }
 
         System.out.print("내용 : ");
         String comtent = sc.nextLine();
-        if(subject.trim().isEmpty()) {
+        if (subject.trim().isEmpty()) {
           System.out.println("내용을 입력해주세요.");
           continue;
         }
@@ -43,12 +43,10 @@ public class Main {
 
         System.out.printf("%d번 게시물이 등록되었습니다.\n", id);
 
-      }
-      else if (cmd.equals("exit")) {
+      } else if (cmd.equals("exit")) {
         System.out.println("텍스트 게시판을 종료합니다.");
         break;
-      }
-      else {
+      } else {
         System.out.println("잘못 입력 된 명령어입니다");
       }
     }
@@ -64,4 +62,9 @@ class Article {
   int id;
   String subject;
   String content;
+
+  @Override //어노텐션-메서드 오버라이딩 한거라는 뜻
+  public String toString() {
+    return "{id: %d, subject: \"%s\", content: \"%s\"}".formatted(id, subject, content);
+  }
 }
