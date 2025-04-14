@@ -4,14 +4,39 @@ import javax.swing.plaf.IconUIResource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.IntStream;
 
 public class Main {
+
+  static void makeArticleTestData(List<Article> articles) { //static안에서 만들어진 함수는 static으로 만들어야됨
+    // List<Article> articles = new ArrayList<>(); -- 데이터 보존 안 됨, articles는 main에서 만든걸 전달
+    /*
+    articles.add(new Article(1, "제목1", "내용1"));
+    articles.add(new Article(1, "제목2", "내용2"));
+    articles.add(new Article(1, "제목3", "내용3"));
+     */
+    // 반복문 - for
+    /*
+    for (int i = 1; i <= 3; i++) {
+      articles.add(new Article(i, "제목" + i, "내용" + i);
+    }
+     */
+    // 반복문 - stream 문법
+
+    IntStream.rangeClosed(1, 3)
+        .forEach(i -> articles.add(new Article(i, "제목" + i, "내용" + i)));
+
+  }
+
   public static void main(String[] args) {
     Scanner sc = new Scanner(System.in);
+    List<Article> articles = new ArrayList<>(); //주소값 연결됨 -- toString 때문에 값들어옴
+
     int lastArticleId = 0;
     Article lastArticle = null; //변수 초기화
 
-    List<Article> articles = new ArrayList<>(); //주소값 연결됨 -- toString 때문에 값들어옴
+    makeArticleTestData(articles);
+
 
     System.out.println("== 자바 텍스트 게시판 ==");
     System.out.println("텍스트 게시판을 시작합니다.");
@@ -75,8 +100,8 @@ public class Main {
          */
 
         //v3 - forEach문
-         articles.forEach(article
-             ->System.out.printf("%d | %s",article.id, article.subject));
+        articles.forEach(article
+            -> System.out.printf("%d | %s", article.id, article.subject));
 
         System.out.println(articles);
       } else if (cmd.equals("/usr/article/detail")) {
