@@ -25,7 +25,7 @@ public class Main {
         }
 
         System.out.print("내용 : ");
-        String comtent = sc.nextLine();
+        String content = sc.nextLine();
         if (subject.trim().isEmpty()) {
           System.out.println("내용을 입력해주세요.");
           continue;
@@ -34,10 +34,8 @@ public class Main {
         int id = ++lastArticleId;
 
         //객체 생성 후, 객체가 가지고 잇는 변수에 데이터 저장
-        Article article = new Article();
-        article.id = id;
-        article.subject = subject;
-        article.content = comtent;
+        Article article = new Article(id, subject, content);
+
 
         System.out.println("생성된 게시물 객체 : " + article);
 
@@ -63,7 +61,14 @@ class Article {
   String subject;
   String content;
 
+  Article(int id, String subject, String content) {
+    this.id = id;
+    this.subject = subject;
+    this.content = content;
+  }
+
   @Override //어노텐션-메서드 오버라이딩 한거라는 뜻
+  //toString 메서드를 쓴 건 개발자가 디버깅을 했을 때 어떤 데이터가 들어있는지 확인을 위함임 프로그램성능 좋아지는게 ㄴㄴ
   public String toString() {
     return "{id: %d, subject: \"%s\", content: \"%s\"}".formatted(id, subject, content);
   }
