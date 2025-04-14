@@ -1,5 +1,8 @@
 package com.sbs.java.board;
 
+import javax.swing.plaf.IconUIResource;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -7,6 +10,8 @@ public class Main {
     Scanner sc = new Scanner(System.in);
     int lastArticleId = 0;
     Article lastArticle = null; //변수 초기화
+
+    List<Article> articles = new ArrayList<>(); //주소값 연결됨 -- toString 때문에 값들어옴
 
     System.out.println("== 자바 텍스트 게시판 ==");
     System.out.println("텍스트 게시판을 시작합니다.");
@@ -38,18 +43,48 @@ public class Main {
         Article article = new Article(id, subject, content);
         lastArticle = article; //해당 객체 주소값을 공유함
 
-
-        System.out.println("생성된 게시물 객체 : " + article);
+        articles.add(article);
 
         System.out.printf("%d번 게시물이 등록되었습니다.\n", id);
 
       }
-      else if (cmd.equals("/usr/article/detail")) {
+      //현재 데이터 유지가 안 됨 --> list에 저장
+      else if (cmd.equals("/usr/article/list")) {
+
+        //배열은 length, 리스트는 size
+        if (articles.isEmpty()) {
+          System.out.println("게시물이 존재하지 않습니다.");
+          continue;
+        }
+
+        System.out.println("== 게시물 리스트 ==");
+        System.out.println("번호 | 제목");
+
+        //v1
+        /*
+        for (int i = 0; i < articles.size(); i++) {
+          Article article = articles.get(i);
+          System.out.printf("%d | %s",article.id, article.subject);
+        }
+         */
+        /*
+        //v2 - 향상된 for문
+        for (Article article : articles) {
+          System.out.printf("%d | %s",article.id, article.subject);
+        }
+         */
+
+        //v3 - forEach문
+         articles.forEach(article
+             ->System.out.printf("%d | %s",article.id, article.subject));
+
+        System.out.println(articles);
+      } else if (cmd.equals("/usr/article/detail")) {
         Article article = lastArticle;
 
         //lastArticle는 null이 들어 있음 게시물을 등록을 안했는데 게시물 조회하면 오류남
         //그래서 유효성 검사가 필요함 (에러 보여주면 안 되기 때문에)
-        if(article == null) {
+        if (article == null) {
           System.out.println("게시물이 존재하지 않습니다.");
           continue;
         }
@@ -58,12 +93,10 @@ public class Main {
         System.out.printf("번호 : %d\n", article.id);
         System.out.printf("제목 : %s\n", article.subject);
         System.out.printf("내용 : %s\n", article.content);
-      }
-      else if (cmd.equals("exit")) {
+      } else if (cmd.equals("exit")) {
         System.out.println("텍스트 게시판을 종료합니다.");
         break;
-      }
-      else {
+      } else {
         System.out.println("잘못 입력 된 명령어입니다");
       }
     }
