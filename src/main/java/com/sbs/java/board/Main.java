@@ -41,8 +41,6 @@ public class Main {
     Article lastArticle = null; //변수 초기화
 
 
-
-
     System.out.println("== 자바 텍스트 게시판 ==");
     System.out.println("텍스트 게시판을 시작합니다.");
 
@@ -102,13 +100,20 @@ public class Main {
         for (Article article : articles) {
           System.out.printf("%d | %s",article.id, article.subject);
         }
-         */
+
 
         //v3 - forEach문
         articles.forEach(article
             -> System.out.printf("%d | %s", article.id, article.subject));
+*/
+        // 게시물 작성 하면 최근에 작성한건 보통 맨 위에 뜸 -- 반복문 역순 이여야함!
+        // 역순 쓸 때 가장 좋은 반복문
+        for (int i = articles.size() - 1; i >= 0; i--) {
+          Article article = articles.get(i);
 
-        System.out.println(articles);
+          System.out.printf("%d | %s\n",article.id, article.subject);
+        }
+
       } else if (cmd.equals("/usr/article/detail")) {
         Article article = lastArticle;
 
